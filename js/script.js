@@ -51,7 +51,7 @@
       titleList.insertAdjacentHTML("beforebegin", linkHTML);
       html = html + linkHTML;
     }
-    titleList.innerHTML = html;
+    //titleList.innerHTML = html;
     const links = document.querySelectorAll("li a");
 
     for (let link of links) {
