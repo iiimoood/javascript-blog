@@ -47,11 +47,10 @@ function generateTitleLinks() {
       articleTitle +
       '</span></a></li>';
 
-    titleList.insertAdjacentHTML('beforebegin', linkHTML);
     html = html + linkHTML;
   }
-  //titleList.innerHTML = html
-  const links = document.querySelectorAll('.sidebar a');
+  titleList.innerHTML = html;
+  const links = document.querySelectorAll('.titles a');
 
   for (let link of links) {
     link.addEventListener('click', titleClickHandler);
