@@ -66,7 +66,7 @@ function generateTitleLinks(customSelector = '') {
 generateTitleLinks();
 
 function generateTags() {
-  let allTags = [];
+  let allTags = {};
   const articles = document.querySelectorAll(optArticleSelector);
 
   for (let article of articles) {
@@ -79,14 +79,22 @@ function generateTags() {
       const linkHTML =
         '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li>';
       html = html + linkHTML;
-      if (allTags.indexOf(linkHTML) == -1) {
-        allTags.push(linkHTML);
+      if (!allTags[tag]) {
+        allTags[tag] = 1;
+      } else {
+        allTags[tag]++;
       }
     }
     tagsWrapper.innerHTML = html;
   }
   const tagList = document.querySelector(optTagsListSelector);
-  tagList.innerHTML = allTags.join(' ');
+  let allTagsHTML = '';
+
+  for (let tag in allTags) {
+    allTagsHTML += tag + ' (' + allTags[tag] + ') ';
+  }
+
+  tagList.innerHTML = allTagsHTML;
 
   function tagClickHandler(event) {
     event.preventDefault();
