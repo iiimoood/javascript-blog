@@ -121,7 +121,7 @@ function generateTags() {
       calculateTagClass(allTags[tag], tagsParams) +
       '" ><span>' +
       tag +
-      ' </span></a></li>';
+      '</span></a></li>';
     allTagsHTML += tagLinkHTML;
   }
 
@@ -163,6 +163,7 @@ function generateAuthors() {
   const articles = document.querySelectorAll(optArticleSelector);
   for (let article of articles) {
     const authorsWrapper = article.querySelector(optArticleAuthorSelector);
+    authorsWrapper.innerHTML = '';
     let html = '';
     const author = article.getAttribute('data-author');
     const linkHTML =
@@ -171,15 +172,36 @@ function generateAuthors() {
       '"><span>' +
       author +
       '</span></a></li>';
-    html = html + linkHTML;
     if (allAuthors.indexOf(linkHTML) == -1) {
       allAuthors.push(linkHTML);
     }
+    html = html + linkHTML;
 
+    if (!allAuthors[author]) {
+      allAuthors[author] = 1;
+    } else {
+      allAuthors[author]++;
+    }
     authorsWrapper.innerHTML = html;
   }
   const authorList = document.querySelector(optAuthorListSelector);
   authorList.innerHTML = allAuthors.join(' ');
+
+  let allAuthorsHTML = '';
+
+  for (let author in allAuthors) {
+    const authorLinkHTML =
+      '<li><a href="#author-' +
+      author +
+      '"><span>' +
+      author +
+      '(' +
+      allAuthors[author] +
+      ')</span></a></li>';
+    allAuthorsHTML += authorLinkHTML;
+  }
+
+  authorList.innerHTML = allAuthorsHTML;
 
   function authorClickHandler(event) {
     event.preventDefault();
