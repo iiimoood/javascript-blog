@@ -32,7 +32,9 @@ const optArticleSelector = '.post',
   optArticleTagsSelector = '.post-tags .list',
   optTagsListSelector = '.tags.list',
   optArticleAuthorSelector = '.post-author',
-  optAuthorListSelector = '.authors.list';
+  optAuthorListSelector = '.authors.list',
+  optCloudClassCount = 5,
+  optCloudClassPrefix = 'tag-size-';
 
 function generateTitleLinks(customSelector = '') {
   const titleList = document.querySelector(optTitleListSelector);
@@ -65,6 +67,24 @@ function generateTitleLinks(customSelector = '') {
 
 generateTitleLinks();
 
+function calculateTagsParams(tags) {
+  const params = { max: 0, min: 999999 };
+  for (let tag in tags) {
+    console.log(tag + ' is used ' + tags[tag] + ' times');
+    params.max = Math.max(tags[tag], params.max);
+    params.min = Math.min(tags[tag], params.min);
+  }
+  return params;
+}
+
+function calculateTagClass(count, params) {
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor(percentage * (optCloudClassCount - 1) + 1);
+  return optCloudClassPrefix, classNumber;
+}
+
 function generateTags() {
   let allTags = {};
   const articles = document.querySelectorAll(optArticleSelector);
@@ -88,17 +108,21 @@ function generateTags() {
     tagsWrapper.innerHTML = html;
   }
   const tagList = document.querySelector(optTagsListSelector);
+
+  const tagsParams = calculateTagsParams(allTags);
+  console.log('tagsParams:', tagsParams);
   let allTagsHTML = '';
 
   for (let tag in allTags) {
-    allTagsHTML +=
+    const tagLinkHTML =
       '<li><a href="#tag-' +
       tag +
-      '"><span>' +
+      '" class="tag-size-' +
+      calculateTagClass(allTags[tag], tagsParams) +
+      '" ><span>' +
       tag +
-      ' (' +
-      allTags[tag] +
-      ')</span></a></li>';
+      ' </span></a></li>';
+    allTagsHTML += tagLinkHTML;
   }
 
   tagList.innerHTML = allTagsHTML;
