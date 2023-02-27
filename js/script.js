@@ -159,7 +159,7 @@ function generateTags() {
 generateTags();
 
 function generateAuthors() {
-  let allAuthors = [];
+  let allAuthors = {};
   const articles = document.querySelectorAll(optArticleSelector);
   for (let article of articles) {
     const authorsWrapper = article.querySelector(optArticleAuthorSelector);
@@ -172,9 +172,6 @@ function generateAuthors() {
       '"><span>' +
       author +
       '</span></a></li>';
-    if (allAuthors.indexOf(linkHTML) == -1) {
-      allAuthors.push(linkHTML);
-    }
     html = html + linkHTML;
 
     if (!allAuthors[author]) {
@@ -185,7 +182,6 @@ function generateAuthors() {
     authorsWrapper.innerHTML = html;
   }
   const authorList = document.querySelector(optAuthorListSelector);
-  authorList.innerHTML = allAuthors.join(' ');
 
   let allAuthorsHTML = '';
 
