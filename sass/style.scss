@@ -94,6 +94,11 @@ body {
     margin-right: 15px;
   }
 }
+.tags {
+  li {
+    display: block;
+  }
+}
 
 /* Authors */
 
@@ -120,34 +125,29 @@ body {
   p {
     margin: 0 10px 0 0;
   }
+}
 
-  .tag-size-1 {
-    font-size: 12px;
-    color: red;
-    display: inline;
-  }
+.tag-size-1 {
+  font-size: 12px;
+  color: red;
+}
 
-  .tag-size-2 {
-    font-size: 15px;
-    color: blue;
-    display: inline;
-  }
+.tag-size-2 {
+  font-size: 15px;
+  color: blue;
+}
 
-  .tag-size-3 {
-    font-size: 18px;
-    color: green;
-    display: inline;
-  }
+.tag-size-3 {
+  font-size: 18px;
+  color: green;
+}
 
-  .tag-size-4 {
-    font-size: 21px;
-    color: orange;
-    display: inline;
-  }
+.tag-size-4 {
+  font-size: 21px;
+  color: orange;
+}
 
-  .tag-size-5 {
-    font-size: 24px;
-    color: violet;
-    display: inline;
-  }
+.tag-size-5 {
+  font-size: 24px;
+  color: violet;
 }
